@@ -1,0 +1,8 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="col person-card">
+    {% image self.image fill-120x120 %}
+    <h2>{{ self.name }}</h2>
+    <h5>{{ self.role }}</h5>
+    <p> {{ self.bio }}</p>
+</div>

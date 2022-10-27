@@ -1,0 +1,27 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+    <div class="split-section">
+
+    {% if self.image_side == 'left' %}
+        <div class="split-section-image">
+            {% image self.image fill-900x700 class="split-section-image" %}
+        </div>
+        <div class="split-section-content">
+            <h1>{{self.header}}</h1>
+            <p>{{self.body}}</p>
+            <a class="banner-button" href="{{self.url}}">{{self.button_text}}</a>
+        </div>
+    {% endif %}
+
+    {% if self.image_side == 'right' %}
+        <div class="split-section-content">
+            <h1>{{self.header}}</h1>
+            <p>{{self.body}}</p>
+            <a class="banner-button" href="{{self.url}}">{{self.button_text}}</a>
+        </div>
+        <div class="split-section-image">
+            {% image self.image fill-900x700 class="split-section-image" %}
+        </div>
+
+    {% endif %}
+    </div>

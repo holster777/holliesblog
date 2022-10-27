@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+
+{% block content %}
+    {% image page.featured_image fill-1920x480 class="blog-banner-image" %}
+<div class="blog-post-container">
+    <div class="blog-author row center">
+        {% for author in self.blog_authors.all %}
+        {% image author.author.image width-200 class="blog-author-image" %}
+        <div class="col">
+            <h5>{{ author.author.name }}</h5>
+            <h3 class="blog-author-bio">{{ author.author.bio }}</h3>
+            <p class="blog-author-website">{{ author.author.website }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="col blog-info">
+    </div>
+
+        <div class="blog-post-content">
+            <h4 class="blog-date">{{page.date}}</h4>
+            <div>
+                {% if page.get_tags %}
+                    <div class="post-tags-container">
+                        {% for tag in page.get_tags %}
+                            <a href="{{ tag.url }}" class="blog-tags">{{ tag }}</a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <h1>{{page.title}}</h1>
+                {% for block in page.blog_post %}
+                    {% if block.block_type == 'heading' %}
+                        <h3>{{block.value}}</h3>
+                    {% elif block.block_type == 'content' %}
+                        <p>{{block.value}}</p>
+                    {% elif block.block_type == 'image' %}
+                        {% image block.value width-350 %}
+                    {% endif %}
+                {% endfor %}
+        </div>
+</div>
+</div>
+<div class="pagination-container">
+    {% if page.prev_post %}
+    <div>
+        <a href="{{page.prev_post.url}}" class="pagination-link"><span class="prev">&#10094;</span>{{page.prev_post.title}}</a>
+    </div>
+    {% endif %}
+    {% if page.next_post %}
+    <div>
+        <a href="{{page.next_post.url}}" class="pagination-link">{{page.next_post.title}}<span class="next">&#10095;</span></a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+<section id="section-1" class="hero">
+
+    {% for block in page.hero_banner %}
+            {% if block.block_type == 'subheading' %}
+                <h4 class="text-center hero-content subheading">{{block.value|richtext}}</h4>
+            {% elif block.block_type == 'content' %}
+                <h1 class="text-center hero-content content">{{block.value|richtext }}</h1>
+            {% elif block.block_type == 'image' %}
+                {% image block.value scale-100 as img %}
+                <img src="{{ img.url }}" alt="{{ img.alt }}" class="hero-image">
+            {% endif %}
+    {% endfor %}
+    <div class="overlay"></div>
+
+</section>
+
+<section id="section-2">
+        <div>
+            <div class="col center">
+            <h3>{{ page.featured_blogs_title }}</h3>
+
+            </div>
+            <div class="row featured-posts">
+                {% for blog in page.featured_blogs %}
+                 <div class="card">
+                   {% image blog.specific.featured_image fill-300x200 class="image" %}
+                  <div class="card-body">
+                    <h5 class="card-title">{{blog.specific.title}}</h5>
+                    <p class="card-text">{{blog.specific.excerpt}}</p>
+                    <a href="{% pageurl blog.specific %}" class="read-more-btn">Read More</a>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+</section>
+
+
+{% endblock content %}

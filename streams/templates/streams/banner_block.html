@@ -1,0 +1,12 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="banner-block">
+    {% image self.image fill-1905x700 class="banner-image" %}
+    <div class="overlay"></div>
+    <div class="banner-content">
+        <h4>{{self.subtitle}}</h4>
+        <h1>{{self.main_text}}</h1>
+    </div>
+    <a class="banner-button" href="{{self.url}}">{{self.button_text}}</a>
+    
+</div>

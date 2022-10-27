@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+<div class="container">     
+            <h1>Blog</h1>
+<div>
+        {% if page.get_child_tags %}
+            <ul class="blog-tags-container">
+                {% for tag in page.get_child_tags %}
+                    <li><a class="blog-tags" href="{{ tag.url }}">{{ tag }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+</div>
+    <div class="blog-container">
+            {% if posts %}
+
+                {% for post in posts %}
+                    <div class="card">
+                      {% image post.specific.featured_image fill-300x200 class="image" %}
+                      <div class="card-body">
+                        <h5 class="card-title">{{post.specific.title}}</h5>
+                        <p class="card-text">{{post.specific.excerpt}}</p>
+                        <a href="{% pageurl post.specific %}" class="read-more-btn">Read More</a>
+                      </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <div>
+                      <p>No blog posts found</p>
+                    </div>
+                
+              {% endif %}
+    </div>
+</div>
+
+
+{% endblock content %}

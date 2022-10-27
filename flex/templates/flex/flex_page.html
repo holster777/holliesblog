@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    <div class="flex-container">
+        <h1 class="flex-subtitle">{{self.subtitle}}</h1>
+        <div class="flex-content col">
+        {% for block in page.content %}
+            {% include_block block %}
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %} 
